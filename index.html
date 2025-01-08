@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern E-commerce</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Sneaker Shop</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="cart-icon">
+                    <a href="#" id="cart-link">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero fade-in">
+        <h1>Welcome to Sneaker Shop</h1>
+        <p>Your one-stop shop for every sneaker you need!</p>
+        <button onclick="location.href='#products'">Shop Now</button>
+    </section>
+
+    <section id="products" class="products fade-in">
+        <div class="product">
+            <img src="images/black sneaker.jpeg" alt="Product Image">
+            <h3>Black Men Sneaker</h3>
+            <p>R1499.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images/yellow sneaker.jpeg" alt="Product Image">
+            <h3>Black Yellow Men Sneaker</h3>
+            <p>R1799.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images/white sneaker.jpeg" alt="Product Image">
+            <h3>White Men Runner Sneaker</h3>
+            <p>R1999.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="images/girly sneaker.jpeg" alt="Product Image">
+            <h3>Miles Sneaker Pinky Rose</h3>
+            <p>R2499.99</p>
+            <button class="add-to-cart">Add to Cart</button>
+        </div>
+        
+    </section>
+
+    <section id="about" class="about fade-in">
+        <h2>About Us</h2>
+        <p>At Shop Sneakers, we are committed to providing the best shopping experience for our customers. Our platform offers a wide range of high-quality products at affordable prices. With a focus on user convenience and satisfaction, we continuously strive to innovate and improve our services.</p>
+        <p>Founded in 2024, ShopEasy has quickly become a trusted name in e-commerce. Our mission is to make shopping easy, accessible, and enjoyable for everyone.</p>
+    </section>
+
+    <section id="contact" class="contact fade-in">
+        <h2>Contact Us</h2>
+        <p>If you have any questions or need assistance, feel free to reach out to us:</p>
+        <ul class="social-media">
+            <li><a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+            <li><a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+            <li><a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 ShopEasy. All Rights Reserved.</p>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+    <script>
+        let cartCount = 0;
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                cartCount++;
+                document.getElementById('cart-count').textContent = cartCount;
+                alert('Product added to cart!');
+            });
+        });
+
+        document.getElementById('cart-link').addEventListener('click', (event) => {
+            event.preventDefault();
+            alert('Your cart is being processed.');
+        });
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('visible', entry.isIntersecting);
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(section => {
+            observer.observe(section);
+        });
+
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
